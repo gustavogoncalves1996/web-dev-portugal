@@ -15,6 +15,7 @@ const Terminal: React.FC = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [currentDemo, setCurrentDemo] = useState(0);
+  const [isUserTyping, setIsUserTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +58,7 @@ Design: Figma, UI/UX Design`,
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isTyping) {
+      if (!isTyping && !isUserTyping && !currentInput) {
         setIsTyping(true);
         typeCommand(demoCommands[currentDemo]);
         setCurrentDemo((prev) => (prev + 1) % demoCommands.length);
@@ -65,7 +66,7 @@ Design: Figma, UI/UX Design`,
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentDemo, isTyping]);
+  }, [currentDemo, isTyping, isUserTyping, currentInput]);
 
   useEffect(() => {
     if (terminalRef.current) {
@@ -103,9 +104,9 @@ Design: Figma, UI/UX Design`,
         newLines.push({ type: 'output', content: commands[command] });
       }
     } else {
-      newLines.push({ 
-        type: 'output', 
-        content: `Comando não reconhecido: ${currentInput}. Digite "ajuda" para ver os comandos disponíveis.` 
+      newLines.push({
+        type: 'output',
+        content: `Comando não reconhecido: ${currentInput}. Digite "ajuda" para ver os comandos disponíveis.`
       });
     }
 
@@ -114,6 +115,7 @@ Design: Figma, UI/UX Design`,
       setLines(newLines);
     }
     setCurrentInput('');
+    setIsUserTyping(false);
   };
 
   return (
@@ -154,7 +156,14 @@ Design: Figma, UI/UX Design`,
             ref={inputRef}
             type="text"
             value={isTyping ? currentInput : currentInput}
-            onChange={(e) => !isTyping && setCurrentInput(e.target.value)}
+            onChange={(e) => {
+              if (!isTyping) {
+                setIsUserTyping(e.target.value.length > 0);
+                setCurrentInput(e.target.value);
+              }
+            }}
+            onFocus={() => setIsUserTyping(currentInput.length > 0)}
+            onBlur={() => setIsUserTyping(false)}
             className="flex-1 bg-transparent outline-none text-terminal-text"
             placeholder={isTyping ? '' : 'Digite um comando...'}
             disabled={isTyping}
