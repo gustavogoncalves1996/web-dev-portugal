@@ -4,57 +4,47 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
   }
-  
+
   body {
     font-family: 'Inter', system-ui, sans-serif;
-  }
-}
-
-@layer components {
-  .terminal-cursor {
-    @apply inline-block w-2 h-5 bg-terminal-green ml-1 animate-pulse;
-  }
-  
-  .floating-nav-btn {
-    @apply fixed z-50 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-primary-50 dark:hover:bg-gray-700;
-  }
-  
-  .section-padding {
-    @apply py-16 px-4 sm:px-6 lg:px-8;
-  }
-  
-  .container-max {
-    @apply max-w-7xl mx-auto;
+    background-color: #f8f8fb;
+    color: #1a1a2e;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  .animated-underline {
-    @apply relative inline-block;
+  ::selection {
+    background: rgba(139, 92, 246, 0.2);
+    color: #1a1a2e;
   }
 
-  .animated-underline::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -2px;
-    left: 0;
-    background: linear-gradient(90deg, #0284c7, #7c3aed);
-    transition: width 0.4s ease-in-out;
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .animated-underline:hover::after {
-    width: 100%;
+  ::-webkit-scrollbar-track {
+    background: #f0f0f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.25);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.4);
   }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent;
-  }
-  
-  .card-hover {
-    @apply transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] hover:ring-2 hover:ring-primary-500 hover:ring-offset-2;
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
