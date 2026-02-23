@@ -34,7 +34,7 @@ export const projects: Project[] = [
     description: "Restaurante Brasão é um projeto que visa criar uma experiência gastronómica única, combinando a tradição culinária com um ambiente acolhedor e moderno. O restaurante oferece uma variedade de pratos inspirados na cozinha portuguesa, utilizando ingredientes frescos e de alta qualidade. Com um serviço atencioso e uma atmosfera convidativa, o Restaurante Brasão é o local perfeito para desfrutar de uma refeição memorável, seja para um jantar romântico, uma reunião de negócios ou uma celebração em família. Venha descobrir os sabores autênticos e a hospitalidade calorosa do Restaurante Brasão.",
     video: "https://va.media.tumblr.com/tumblr_tax1udCZkf1b0v1cc_720.mp4",
     technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
-    liveUrl: "h#",
+    liveUrl: "https://bras-o-restaurant-pr-6r2a.bolt.host/",
     githubUrl: "#"
   },
   
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     description: "No Palazzo Collections, elevamos a venda da sua propriedade a um novo patamar. Somos uma plataforma inovadora que conecta proprietários de imóveis a compradores e investidores, oferecendo uma experiência de venda personalizada e eficiente. Com uma interface intuitiva e ferramentas avançadas de marketing, ajudamos a destacar as suas propriedades no mercado, atraindo o público certo e maximizando o valor da sua venda. Seja para vender um apartamento, uma casa ou um imóvel comercial, o Palazzo Collections é a solução definitiva para transformar a sua experiência de venda imobiliária. Descubra como podemos ajudar a vender a sua propriedade de forma rápida e lucrativa com o Palazzo Collections.",
     video: "https://va.media.tumblr.com/tumblr_tax1wtKLaV1b0v1cc_720.mp4",
     technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
-    liveUrl: "h#",
+    liveUrl: "https://palazzo-collections-pbz9.bolt.host/",
     githubUrl: "#"
   },
 
