@@ -8,14 +8,6 @@ const AboutSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textBlocksRef = useRef<(HTMLElement | null)[]>([]);
-  const statsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const stats = [
-    { value: '50+', label: 'Projetos Entregues' },
-    { value: '30+', label: 'Clientes Satisfeitos' },
-    { value: '5+', label: 'Anos de Experiência' },
-    { value: '100%', label: 'Dedicação' },
-  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,28 +49,6 @@ const AboutSection: React.FC = () => {
           }
         );
       });
-
-      // Stats animation
-      statsRef.current.forEach((stat, i) => {
-        if (!stat) return;
-        gsap.fromTo(
-          stat,
-          { opacity: 0, scale: 0.8, y: 40 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'back.out(1.7)',
-            scrollTrigger: {
-              trigger: stat,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
-            },
-            delay: i * 0.1,
-          }
-        );
-      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -113,25 +83,11 @@ const AboutSection: React.FC = () => {
             </h2>
 
             <div className="mt-8 w-20 h-1 bg-gradient-to-r from-[#415a77] to-[#1b263b] rounded-full" aria-hidden="true" />
-
-            {/* Stats grid */}
-            <div className="mt-12 grid grid-cols-2 gap-6" role="list" aria-label="Estatísticas">
-              {stats.map((stat, i) => (
-                <div
-                  key={i}
-                  ref={(el) => { statsRef.current[i] = el; }}
-                  role="listitem"
-                  className="p-5 rounded-2xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm opacity-0"
-                >
-                  <div className="text-3xl font-black bg-gradient-to-r from-[#415a77] to-[#0d1b2a] bg-clip-text text-transparent">
-                    {stat.value}
-                  </div>
-                  <div className="text-[#5c7a99] text-sm mt-1 font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
+            
+            <p className="mt-8 text-[#5c7a99] leading-relaxed text-lg font-light hidden lg:block">
+              Transformamos ideias em experiências digitais memoráveis, 
+              combinando design elegante com tecnologia de ponta.
+            </p>
           </div>
 
           {/* Right column - text blocks */}
@@ -172,9 +128,10 @@ const AboutSection: React.FC = () => {
               </p>
             </article>
 
+            {/* Third card - hidden on mobile */}
             <article
               ref={(el) => { textBlocksRef.current[2] = el; }}
-              className="p-8 rounded-3xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm opacity-0"
+              className="hidden md:block p-8 rounded-3xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm opacity-0"
             >
               <h3 className="text-xl font-bold text-[#0d1b2a] mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 rounded-lg bg-[#415a77]/20 flex items-center justify-center text-[#415a77] text-sm font-bold" aria-hidden="true">

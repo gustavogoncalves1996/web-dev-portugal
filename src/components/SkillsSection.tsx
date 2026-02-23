@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  FaReact, FaVuejs, FaAngular, FaNodeJs, FaPython,
-  FaGitAlt, FaDocker, FaAws, FaFigma,
+  FaReact, FaNodeJs,
+  FaGitAlt, FaDocker, FaAws,
 } from 'react-icons/fa';
 import {
   SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb,
@@ -23,17 +23,13 @@ interface SkillItem {
 const allSkills: SkillItem[] = [
   { name: 'React', icon: FaReact, color: 'from-cyan-400 to-blue-500', category: 'Frontend', level: 95 },
   { name: 'TypeScript', icon: SiTypescript, color: 'from-blue-400 to-blue-600', category: 'Frontend', level: 90 },
-  { name: 'Vue.js', icon: FaVuejs, color: 'from-emerald-400 to-green-500', category: 'Frontend', level: 85 },
-  { name: 'Angular', icon: FaAngular, color: 'from-red-400 to-red-600', category: 'Frontend', level: 80 },
   { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'from-cyan-300 to-cyan-500', category: 'Frontend', level: 95 },
   { name: 'Node.js', icon: FaNodeJs, color: 'from-green-400 to-emerald-600', category: 'Backend', level: 90 },
-  { name: 'Python', icon: FaPython, color: 'from-yellow-400 to-blue-500', category: 'Backend', level: 85 },
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'from-blue-300 to-indigo-500', category: 'Backend', level: 88 },
   { name: 'MongoDB', icon: SiMongodb, color: 'from-green-400 to-green-600', category: 'Backend', level: 82 },
   { name: 'Git', icon: FaGitAlt, color: 'from-orange-400 to-red-500', category: 'Ferramentas', level: 92 },
   { name: 'Docker', icon: FaDocker, color: 'from-blue-400 to-cyan-500', category: 'Ferramentas', level: 85 },
   { name: 'AWS', icon: FaAws, color: 'from-orange-300 to-yellow-500', category: 'Ferramentas', level: 78 },
-  { name: 'Figma', icon: FaFigma, color: 'from-pink-400 to-violet-500', category: 'Design', level: 88 },
   { name: 'UI/UX', icon: MdDesignServices, color: 'from-fuchsia-400 to-pink-500', category: 'Design', level: 85 },
 ];
 
@@ -41,10 +37,69 @@ const SkillsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const autoAnimationRef = useRef<gsap.core.Timeline | null>(null);
+  const isInViewRef = useRef(false);
+
+  // Animate a single card (highlight effect)
+  const animateCard = useCallback((card: HTMLDivElement | null, isActive: boolean) => {
+    if (!card) return;
+    
+    gsap.to(card, {
+      scale: isActive ? 1.08 : 1,
+      y: isActive ? -12 : 0,
+      boxShadow: isActive 
+        ? '0 20px 40px rgba(65, 90, 119, 0.2), 0 0 60px rgba(65, 90, 119, 0.1)' 
+        : '0 1px 3px rgba(0,0,0,0.1)',
+      duration: 0.5,
+      ease: 'power2.out',
+    });
+    
+    gsap.to(card.querySelector('.skill-icon'), {
+      rotate: isActive ? 15 : 0,
+      scale: isActive ? 1.3 : 1,
+      duration: 0.5,
+      ease: 'back.out(1.7)',
+    });
+    
+    gsap.to(card.querySelector('.skill-bar-fill'), {
+      scaleX: isActive ? 1 : 0.3,
+      duration: 0.8,
+      ease: 'power2.out',
+    });
+
+    gsap.to(card.querySelector('.skill-glow'), {
+      opacity: isActive ? 0.15 : 0,
+      duration: 0.5,
+    });
+  }, []);
+
+  // Start sequential auto-animation
+  const startAutoAnimation = useCallback(() => {
+    if (autoAnimationRef.current) {
+      autoAnimationRef.current.kill();
+    }
+
+    const tl = gsap.timeline({ repeat: -1 });
+    
+    cardsRef.current.forEach((card, i) => {
+      if (!card) return;
+      
+      // Activate this card
+      tl.call(() => animateCard(card, true), [], i * 0.8);
+      
+      // Deactivate after delay
+      tl.call(() => animateCard(card, false), [], i * 0.8 + 0.6);
+    });
+
+    // Add a pause at the end before repeating
+    tl.to({}, { duration: 1 });
+    
+    autoAnimationRef.current = tl;
+  }, [animateCard]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading
+      // Heading animation
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 50 },
@@ -61,67 +116,82 @@ const SkillsSection: React.FC = () => {
         }
       );
 
-      // Bento cards stagger
+      // Cards entrance animation with stagger
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
         gsap.fromTo(
           card,
-          { opacity: 0, y: 50, scale: 0.95 },
+          { opacity: 0, y: 60, scale: 0.8, rotateY: -15 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.7,
-            ease: 'power3.out',
+            rotateY: 0,
+            duration: 0.8,
+            ease: 'back.out(1.2)',
             scrollTrigger: {
               trigger: card,
               start: 'top 90%',
               toggleActions: 'play none none reverse',
             },
-            delay: i * 0.06,
+            delay: i * 0.08,
           }
         );
       });
+
+      // Start auto-animation when section comes into view
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 60%',
+        end: 'bottom 20%',
+        onEnter: () => {
+          isInViewRef.current = true;
+          setTimeout(() => startAutoAnimation(), 1000); // Delay to let entrance animation finish
+        },
+        onLeave: () => {
+          isInViewRef.current = false;
+          if (autoAnimationRef.current) {
+            autoAnimationRef.current.pause();
+          }
+        },
+        onEnterBack: () => {
+          isInViewRef.current = true;
+          if (autoAnimationRef.current) {
+            autoAnimationRef.current.play();
+          }
+        },
+        onLeaveBack: () => {
+          isInViewRef.current = false;
+          if (autoAnimationRef.current) {
+            autoAnimationRef.current.pause();
+          }
+        },
+      });
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      if (autoAnimationRef.current) {
+        autoAnimationRef.current.kill();
+      }
+      ctx.revert();
+    };
+  }, [startAutoAnimation]);
 
+  // Hover handlers (pause auto-animation on hover)
   const handleMouseEnter = (card: HTMLDivElement | null) => {
     if (!card) return;
-    gsap.to(card, {
-      scale: 1.05,
-      y: -8,
-      duration: 0.4,
-      ease: 'power2.out',
-    });
-    gsap.to(card.querySelector('.skill-icon'), {
-      rotate: 10,
-      scale: 1.2,
-      duration: 0.4,
-      ease: 'power2.out',
-    });
-    gsap.to(card.querySelector('.skill-bar-fill'), {
-      scaleX: 1,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
+    if (autoAnimationRef.current) {
+      autoAnimationRef.current.pause();
+    }
+    animateCard(card, true);
   };
 
   const handleMouseLeave = (card: HTMLDivElement | null) => {
     if (!card) return;
-    gsap.to(card, {
-      scale: 1,
-      y: 0,
-      duration: 0.4,
-      ease: 'power2.out',
-    });
-    gsap.to(card.querySelector('.skill-icon'), {
-      rotate: 0,
-      scale: 1,
-      duration: 0.4,
-      ease: 'power2.out',
-    });
+    animateCard(card, false);
+    if (autoAnimationRef.current && isInViewRef.current) {
+      autoAnimationRef.current.play();
+    }
   };
 
   return (
@@ -152,7 +222,7 @@ const SkillsSection: React.FC = () => {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4" role="list" aria-label="Lista de competências">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5" role="list" aria-label="Lista de competências">
           {allSkills.map((skill, i) => {
             const Icon = skill.icon;
             return (
@@ -162,32 +232,36 @@ const SkillsSection: React.FC = () => {
                 onMouseEnter={() => handleMouseEnter(cardsRef.current[i])}
                 onMouseLeave={() => handleMouseLeave(cardsRef.current[i])}
                 role="listitem"
-                className="group relative p-5 rounded-2xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm cursor-pointer opacity-0 transition-colors duration-300 hover:bg-white hover:border-[#415a77]/30 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#2563eb]"
+                className="group relative p-6 rounded-2xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm cursor-pointer opacity-0 transition-colors duration-300"
                 tabIndex={0}
                 aria-label={`${skill.name} - ${skill.category} - ${skill.level}% de domínio`}
+                style={{ transformStyle: 'preserve-3d' }}
               >
+                {/* Glow effect */}
+                <div 
+                  className={`skill-glow absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 pointer-events-none`} 
+                  aria-hidden="true" 
+                />
+                
                 {/* Icon */}
-                <div className="skill-icon mb-4" aria-hidden="true">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.color} p-2.5 flex items-center justify-center shadow-lg`}>
+                <div className="skill-icon mb-4 relative z-10" aria-hidden="true">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${skill.color} p-3 flex items-center justify-center shadow-lg`}>
                     <Icon className="w-full h-full text-white" />
                   </div>
                 </div>
 
                 {/* Name & Category */}
-                <h3 className="text-[#0d1b2a] font-semibold text-sm mb-1">{skill.name}</h3>
-                <p className="text-[#5c7a99] text-xs font-medium mb-3">{skill.category}</p>
+                <h3 className="text-[#0d1b2a] font-bold text-base mb-1 relative z-10">{skill.name}</h3>
+                <p className="text-[#5c7a99] text-xs font-medium mb-4 relative z-10">{skill.category}</p>
 
                 {/* Skill level bar */}
-                <div className="w-full h-1 rounded-full bg-[#e0e1dd] overflow-hidden" role="progressbar" aria-valuenow={skill.level} aria-valuemin={0} aria-valuemax={100}>
+                <div className="w-full h-1.5 rounded-full bg-[#e0e1dd] overflow-hidden relative z-10" role="progressbar" aria-valuenow={skill.level} aria-valuemin={0} aria-valuemax={100}>
                   <div
                     className={`skill-bar-fill h-full rounded-full bg-gradient-to-r ${skill.color}`}
                     style={{ width: `${skill.level}%`, transform: 'scaleX(0.3)', transformOrigin: 'left' }}
                   />
                 </div>
-                <p className="text-[#5c7a99]/70 text-[10px] mt-1.5 font-mono">{skill.level}%</p>
-
-                {/* Glow on hover */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none`} aria-hidden="true" />
+                <p className="text-[#5c7a99]/70 text-xs mt-2 font-mono relative z-10">{skill.level}%</p>
               </div>
             );
           })}
