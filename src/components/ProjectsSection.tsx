@@ -23,7 +23,7 @@ const ProjectsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
-  const projectCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -88,22 +88,23 @@ const ProjectsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="portfolio"
+      aria-labelledby="portfolio-heading"
       className="relative py-32 px-6 lg:px-12 overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8fb] via-white to-[#f8f8fb]" />
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-400/[0.04] rounded-full blur-[120px]" />
+      {/* Light Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#e0e1dd] via-[#f5f5f3] to-[#e0e1dd]" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#415a77]/5 rounded-full blur-[120px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-16 opacity-0">
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 leading-tight tracking-tight">
+          <h2 id="portfolio-heading" className="text-5xl md:text-7xl font-black text-[#0d1b2a] leading-tight tracking-tight">
             Os Nossos{' '}
-            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#415a77] via-[#1b263b] to-[#0d1b2a] bg-clip-text text-transparent">
               Projetos
             </span>
           </h2>
-          <p className="text-gray-400 text-lg md:text-xl mt-6 max-w-2xl mx-auto font-light">
+          <p className="text-[#5c7a99] text-lg md:text-xl mt-6 max-w-2xl mx-auto font-light">
             Explore as nossas soluções digitais desenvolvidas com tecnologias de ponta.
             Arraste para navegar na galeria.
           </p>
@@ -113,6 +114,8 @@ const ProjectsSection: React.FC = () => {
         <div
           ref={galleryRef}
           className="w-full h-[400px] md:h-[500px] mb-24 opacity-0"
+          role="region"
+          aria-label="Galeria de projetos"
         >
           <DomeGallery
             fit={0.75}
@@ -125,56 +128,59 @@ const ProjectsSection: React.FC = () => {
         </div>
 
         {/* Project Details */}
-        <div className="space-y-8">
+        <div className="space-y-8" role="list" aria-label="Detalhes dos projetos">
           {projects.map((project, i) => (
-            <div
+            <article
               key={project.id}
               ref={(el) => { projectCardsRef.current[i] = el; }}
-              className="group relative rounded-3xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-sm overflow-hidden opacity-0 transition-colors duration-300 hover:bg-white hover:border-gray-300 hover:shadow-md"
+              role="listitem"
+              className="group relative rounded-3xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm overflow-hidden opacity-0 transition-colors duration-300 hover:bg-white hover:border-[#415a77]/30 hover:shadow-lg"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 {/* Video / Image */}
                 <div className="relative aspect-video lg:aspect-auto overflow-hidden">
                   {project.video ? (
                     <video
-                      className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                       autoPlay
                       muted
                       loop
                       playsInline
                       preload="none"
+                      aria-label={`Vídeo demonstrativo do projeto ${project.title}`}
                     >
                       <source src={project.video} type="video/mp4" />
                     </video>
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-violet-100 to-fuchsia-100 flex items-center justify-center">
-                      <span className="text-gray-400 text-2xl font-bold">
+                    <div className="w-full h-full bg-gradient-to-br from-[#415a77]/20 to-[#1b263b]/10 flex items-center justify-center">
+                      <span className="text-[#5c7a99] text-2xl font-bold">
                         {project.title}
                       </span>
                     </div>
                   )}
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/60 to-transparent lg:bg-gradient-to-l" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#f5f5f3]/60 to-transparent lg:bg-gradient-to-l" aria-hidden="true" />
                 </div>
 
                 {/* Info */}
                 <div className="p-8 lg:p-12 flex flex-col justify-center">
-                  <span className="text-violet-600 text-sm font-mono uppercase tracking-widest mb-3">
+                  <span className="text-[#415a77] text-sm font-mono uppercase tracking-widest mb-3" aria-hidden="true">
                     Projeto {String(i + 1).padStart(2, '0')}
                   </span>
-                  <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 tracking-tight">
+                  <h3 className="text-3xl md:text-4xl font-black text-[#0d1b2a] mb-4 tracking-tight">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed font-light mb-6 line-clamp-3">
+                  <p className="text-[#5c7a99] leading-relaxed font-light mb-6 line-clamp-3">
                     {project.description}
                   </p>
 
                   {/* Tech tags */}
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  <div className="flex flex-wrap gap-2 mb-8" role="list" aria-label="Tecnologias utilizadas">
                     {project.technologies.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-gray-500 text-xs font-medium"
+                        role="listitem"
+                        className="px-3 py-1 rounded-full bg-[#e0e1dd] border border-[#415a77]/20 text-[#5c7a99] text-xs font-medium"
                       >
                         {tech}
                       </span>
@@ -188,7 +194,8 @@ const ProjectsSection: React.FC = () => {
                         window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
                       }
                     }}
-                    className="inline-flex items-center gap-2 text-violet-600 font-semibold text-sm hover:text-violet-500 transition-colors group/link cursor-pointer"
+                    aria-label={`Ver projeto ${project.title} (abre em nova janela)`}
+                    className="inline-flex items-center gap-2 text-[#415a77] font-semibold text-sm hover:text-[#1b263b] transition-colors group/link cursor-pointer focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-2 rounded-lg p-1 -ml-1"
                   >
                     Ver Projeto
                     <svg
@@ -196,6 +203,7 @@ const ProjectsSection: React.FC = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
+                      aria-hidden="true"
                     >
                       <path
                         strokeLinecap="round"
@@ -207,7 +215,7 @@ const ProjectsSection: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

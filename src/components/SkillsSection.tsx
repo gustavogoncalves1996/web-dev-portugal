@@ -128,30 +128,31 @@ const SkillsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="skills"
+      aria-labelledby="skills-heading"
       className="relative py-32 px-6 lg:px-12 overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8fb] via-[#f2f2f8] to-[#f8f8fb]" />
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-fuchsia-400/[0.04] rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-400/[0.04] rounded-full blur-[100px]" />
+      {/* Light Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#e0e1dd] via-[#f5f5f3] to-[#e0e1dd]" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-[#415a77]/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1b263b]/5 rounded-full blur-[100px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-20 opacity-0">
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 leading-tight tracking-tight">
+          <h2 id="skills-heading" className="text-5xl md:text-7xl font-black text-[#0d1b2a] leading-tight tracking-tight">
             As Nossas{' '}
-            <span className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#415a77] to-[#1b263b] bg-clip-text text-transparent">
               Competências
             </span>
           </h2>
-          <p className="text-gray-400 text-lg md:text-xl mt-6 max-w-2xl mx-auto font-light">
+          <p className="text-[#5c7a99] text-lg md:text-xl mt-6 max-w-2xl mx-auto font-light">
             Dominamos uma vasta gama de tecnologias modernas para criar soluções
             completas e eficientes.
           </p>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4" role="list" aria-label="Lista de competências">
           {allSkills.map((skill, i) => {
             const Icon = skill.icon;
             return (
@@ -160,30 +161,33 @@ const SkillsSection: React.FC = () => {
                 ref={(el) => { cardsRef.current[i] = el; }}
                 onMouseEnter={() => handleMouseEnter(cardsRef.current[i])}
                 onMouseLeave={() => handleMouseLeave(cardsRef.current[i])}
-                className="group relative p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-sm cursor-pointer opacity-0 transition-colors duration-300 hover:bg-white hover:border-gray-300 hover:shadow-md"
+                role="listitem"
+                className="group relative p-5 rounded-2xl bg-[#f5f5f3] backdrop-blur-sm border border-[#415a77]/15 shadow-sm cursor-pointer opacity-0 transition-colors duration-300 hover:bg-white hover:border-[#415a77]/30 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#2563eb]"
+                tabIndex={0}
+                aria-label={`${skill.name} - ${skill.category} - ${skill.level}% de domínio`}
               >
                 {/* Icon */}
-                <div className="skill-icon mb-4">
+                <div className="skill-icon mb-4" aria-hidden="true">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.color} p-2.5 flex items-center justify-center shadow-lg`}>
                     <Icon className="w-full h-full text-white" />
                   </div>
                 </div>
 
                 {/* Name & Category */}
-                <h3 className="text-gray-900 font-semibold text-sm mb-1">{skill.name}</h3>
-                <p className="text-gray-400 text-xs font-medium mb-3">{skill.category}</p>
+                <h3 className="text-[#0d1b2a] font-semibold text-sm mb-1">{skill.name}</h3>
+                <p className="text-[#5c7a99] text-xs font-medium mb-3">{skill.category}</p>
 
                 {/* Skill level bar */}
-                <div className="w-full h-1 rounded-full bg-gray-100 overflow-hidden">
+                <div className="w-full h-1 rounded-full bg-[#e0e1dd] overflow-hidden" role="progressbar" aria-valuenow={skill.level} aria-valuemin={0} aria-valuemax={100}>
                   <div
                     className={`skill-bar-fill h-full rounded-full bg-gradient-to-r ${skill.color}`}
                     style={{ width: `${skill.level}%`, transform: 'scaleX(0.3)', transformOrigin: 'left' }}
                   />
                 </div>
-                <p className="text-gray-300 text-[10px] mt-1.5 font-mono">{skill.level}%</p>
+                <p className="text-[#5c7a99]/70 text-[10px] mt-1.5 font-mono">{skill.level}%</p>
 
                 {/* Glow on hover */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none`} />
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none`} aria-hidden="true" />
               </div>
             );
           })}

@@ -83,7 +83,7 @@ const GridMotion: React.FC<GridMotionProps> = ({
           return (
             <div
               key={j}
-              className="relative w-[280px] h-[180px] md:w-[340px] md:h-[220px] lg:w-[400px] lg:h-[260px] rounded-2xl overflow-hidden flex-shrink-0 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] shadow-sm"
+              className="relative w-[280px] h-[180px] md:w-[340px] md:h-[220px] lg:w-[400px] lg:h-[260px] rounded-2xl overflow-hidden flex-shrink-0 bg-[#f5f5f3]/80 backdrop-blur-sm border border-[#415a77]/15 shadow-sm"
             >
               {isImage ? (
                 <img
@@ -93,7 +93,7 @@ const GridMotion: React.FC<GridMotionProps> = ({
                   className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity duration-500"
                 />
               ) : typeof item === 'string' && item ? (
-                <div className="flex items-center justify-center w-full h-full text-gray-400 text-sm font-mono">
+                <div className="flex items-center justify-center w-full h-full text-[#5c7a99] text-sm font-mono">
                   {item}
                 </div>
               ) : item ? (
@@ -101,7 +101,7 @@ const GridMotion: React.FC<GridMotionProps> = ({
                   {item}
                 </div>
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-black/[0.02] to-black/[0.05]" />
+                <div className="w-full h-full bg-gradient-to-br from-[#f5f5f3]/50 to-[#415a77]/5" />
               )}
             </div>
           );

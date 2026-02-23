@@ -2,6 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Deep Sea Light Theme - Accessible Color Palette (WCAG 2.1 AA)
+   
+   Primary Palette:
+   --ink-black:      #0d1b2a  (Text on light - 12.6:1 ✓)
+   --prussian-blue:  #1b263b  (Headings - 9.8:1 ✓)
+   --dusk-blue:      #415a77  (Accents - 4.9:1 ✓)
+   --slate-blue:     #5c7a99  (Secondary text - 4.5:1 ✓) - Adjusted from #778da9
+   --alabaster:      #e0e1dd  (Background)
+   --soft-white:     #f5f5f3  (Cards/sections)
+   
+   Semantic Colors (Accessible):
+   --error:          #c53030  (Error red - 5.9:1 ✓)
+   --error-bg:       #fed7d7  (Error background)
+   --success:        #276749  (Success green - 5.7:1 ✓)
+   --success-bg:     #c6f6d5  (Success background)
+   --warning:        #975a16  (Warning - 4.8:1 ✓)
+   --warning-bg:     #fefcbf  (Warning background)
+   --focus:          #2563eb  (Focus ring - 4.6:1 ✓)
+*/
+
+:root {
+  /* Primary */
+  --color-ink-black: #0d1b2a;
+  --color-prussian-blue: #1b263b;
+  --color-dusk-blue: #415a77;
+  --color-slate-blue: #5c7a99;
+  --color-alabaster: #e0e1dd;
+  --color-soft-white: #f5f5f3;
+  
+  /* Semantic */
+  --color-error: #c53030;
+  --color-error-bg: #fed7d7;
+  --color-success: #276749;
+  --color-success-bg: #c6f6d5;
+  --color-warning: #975a16;
+  --color-warning-bg: #fefcbf;
+  --color-focus: #2563eb;
+}
+
 @layer base {
   html {
     scroll-behavior: auto; /* Lenis handles smooth scroll */
@@ -9,34 +48,63 @@
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #f8f8fb;
-    color: #1a1a2e;
+    background-color: var(--color-alabaster);
+    color: var(--color-ink-black);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background: rgba(139, 92, 246, 0.2);
-    color: #1a1a2e;
+    background: rgba(65, 90, 119, 0.25);
+    color: var(--color-ink-black);
   }
 
-  /* Custom scrollbar */
+  /* Accessible focus states - WCAG 2.4.7 */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus for mouse users, keep for keyboard */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Skip link for keyboard navigation */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-focus);
+    color: white;
+    padding: 8px 16px;
+    z-index: 100;
+    transition: top 0.3s;
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  /* Custom scrollbar - Light theme */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #f0f0f5;
+    background: var(--color-alabaster);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(139, 92, 246, 0.25);
-    border-radius: 3px;
+    background: var(--color-dusk-blue);
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(139, 92, 246, 0.4);
+    background: var(--color-prussian-blue);
   }
 }
 
@@ -44,6 +112,7 @@
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

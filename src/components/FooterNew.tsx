@@ -11,27 +11,27 @@ const FooterNew: React.FC = () => {
   // ];
 
   return (
-    <footer className="relative py-16 px-6 border-t border-gray-200">
-      <div className="absolute inset-0 bg-white" />
+    <footer className="relative py-16 px-6 border-t border-[#415a77]/20" role="contentinfo">
+      <div className="absolute inset-0 bg-[#f5f5f3]" aria-hidden="true" />
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">
+            <h3 className="text-2xl font-black text-[#0d1b2a] mb-3 tracking-tight">
               WebDev{' '}
-              <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#415a77] to-[#1b263b] bg-clip-text text-transparent">
                 Portugal
               </span>
             </h3>
-            <p className="text-gray-400 leading-relaxed text-sm font-light">
+            <p className="text-[#5c7a99] leading-relaxed text-sm font-light">
               Criamos experiências digitais excepcionais com tecnologias modernas
               e design centrado no utilizador.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-gray-500 font-semibold text-sm uppercase tracking-widest mb-4">
+          <nav aria-label="Links rápidos">
+            <h4 className="text-[#1b263b] font-semibold text-sm uppercase tracking-widest mb-4">
               Navegação
             </h4>
             <ul className="space-y-2">
@@ -40,7 +40,7 @@ const FooterNew: React.FC = () => {
                   <li key={item}>
                     <a
                       href={`#${item === 'Início' ? 'home' : item === 'Sobre' ? 'about' : item === 'Competências' ? 'skills' : item === 'Projetos' ? 'portfolio' : 'contact'}`}
-                      className="text-gray-400 hover:text-violet-600 transition-colors text-sm font-light"
+                      className="text-[#5c7a99] hover:text-[#0d1b2a] transition-colors text-sm font-light focus-visible:ring-2 focus-visible:ring-[#2563eb] rounded"
                     >
                       {item}
                     </a>
@@ -48,42 +48,37 @@ const FooterNew: React.FC = () => {
                 )
               )}
             </ul>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div>
-            <h4 className="text-gray-500 font-semibold text-sm uppercase tracking-widest mb-4">
+            <h4 className="text-[#1b263b] font-semibold text-sm uppercase tracking-widest mb-4">
               Contacto
             </h4>
-            <div className="space-y-2 text-gray-400 text-sm font-light">
-              <p>ola.webdevportugal@gmail.com</p>
-              <p>+351 925934270</p>
-              <p>Lisboa, Portugal</p>
-            </div>
-
-            <div className="flex space-x-3 mt-6">
-              {/* {socialLinks.map((social, i) => (
-                <a
-                  key={i}
-                  href={social.href}
-                  className="w-9 h-9 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-violet-600 hover:border-violet-300 transition-all duration-300"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4" />
+            <address className="space-y-2 text-[#5c7a99] text-sm font-light not-italic">
+              <p>
+                <a href="mailto:ola.webdevportugal@gmail.com" className="hover:text-[#0d1b2a] transition-colors focus-visible:ring-2 focus-visible:ring-[#2563eb] rounded">
+                  ola.webdevportugal@gmail.com
                 </a>
-              ))} */}
-            </div>
+              </p>
+              <p>
+                <a href="tel:+351925934270" className="hover:text-[#0d1b2a] transition-colors focus-visible:ring-2 focus-visible:ring-[#2563eb] rounded">
+                  +351 925934270
+                </a>
+              </p>
+              <p>Lisboa, Portugal</p>
+            </address>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-xs">
+        <div className="pt-8 border-t border-[#415a77]/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[#5c7a99] text-xs">
             © {currentYear} WebDev Portugal. Todos os direitos reservados.
           </p>
-          <div className="flex items-center gap-1.5 text-gray-400 text-xs">
+          <div className="flex items-center gap-1.5 text-[#5c7a99] text-xs">
             <span>Feito com</span>
-            <FaHeart className="w-3 h-3 text-red-500/60" />
+            <FaHeart className="w-3 h-3 text-red-500" aria-label="amor" />
             <span>em Portugal</span>
           </div>
         </div>

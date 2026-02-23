@@ -167,7 +167,7 @@ const DomeGallery: React.FC<DomeGalleryProps> = ({
       </div>
 
       {/* Reflection gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#f8f8fb] to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#e0e1dd] to-transparent pointer-events-none" aria-hidden="true" />
     </div>
   );
 };

@@ -68,24 +68,27 @@ const NavigationNew: React.FC = () => {
     <nav
       ref={navRef}
       className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 opacity-0"
+      aria-label="Navegação principal"
     >
-      <div className="flex items-center gap-1 px-2 py-2 rounded-full bg-white/80 backdrop-blur-2xl border border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+      <div className="flex items-center gap-1 px-2 py-2 rounded-full bg-[#f5f5f3]/95 backdrop-blur-2xl border border-[#415a77]/20 shadow-[0_8px_32px_rgba(13,27,42,0.15)]">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => scrollTo(item.id)}
-            className={`relative px-3 py-2 md:px-4 rounded-full text-xs font-medium tracking-wide transition-all duration-300 ${
+            aria-label={item.label}
+            aria-current={activeSection === item.id ? 'page' : undefined}
+            className={`relative px-3 py-2 md:px-4 rounded-full text-xs font-medium tracking-wide transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-2 ${
               activeSection === item.id
-                ? 'text-white'
-                : 'text-gray-400 hover:text-gray-600'
+                ? 'text-[#e0e1dd]'
+                : 'text-[#5c7a99] hover:text-[#0d1b2a]'
             }`}
           >
             {activeSection === item.id && (
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-600/80 to-fuchsia-600/80" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#415a77] to-[#1b263b]" aria-hidden="true" />
             )}
             <span className="relative z-10 flex items-center justify-center">
               {/* Icon on mobile, text on desktop */}
-              <item.icon className="w-4 h-4 md:hidden" />
+              <item.icon className="w-4 h-4 md:hidden" aria-hidden="true" />
               <span className="hidden md:inline">{item.label}</span>
             </span>
           </button>

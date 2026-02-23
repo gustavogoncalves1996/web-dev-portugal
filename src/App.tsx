@@ -52,15 +52,24 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#f8f8fb] text-gray-900 min-h-screen selection:bg-violet-500/20 selection:text-gray-900">
-      <NavigationNew />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
-      <FooterNew />
-    </div>
+    <>
+      {/* Skip link for keyboard navigation - WCAG 2.4.1 */}
+      <a href="#main-content" className="skip-link">
+        Saltar para o conteúdo principal
+      </a>
+      
+      <div className="bg-[#e0e1dd] text-[#0d1b2a] min-h-screen selection:bg-[#415a77]/25 selection:text-[#0d1b2a]">
+        <NavigationNew />
+        <main id="main-content" role="main">
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <ContactSection />
+        </main>
+        <FooterNew />
+      </div>
+    </>
   );
 }
 

@@ -79,38 +79,43 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="home" className="relative w-full h-screen overflow-hidden bg-[#f0f0f5]">
+    <section 
+      id="home" 
+      className="relative w-full h-screen overflow-hidden bg-[#e0e1dd]"
+      aria-labelledby="hero-heading"
+    >
       {/* GridMotion Background — fills entire viewport with no gaps */}
-      <div className="absolute inset-0 z-0">
-        <GridMotion items={gridItems} gradientColor="#f0f0f5" />
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <GridMotion items={gridItems} gradientColor="#e0e1dd" />
       </div>
 
       {/* Content Overlay */}
       <div className="relative z-10 flex items-center justify-center w-full h-full px-6">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Glassmorphism Card */}
-          <div className="p-8 md:p-12 rounded-3xl bg-white/60 backdrop-blur-2xl border border-white/80 shadow-[0_8px_64px_rgba(0,0,0,0.06)]">
+          {/* Glassmorphism Card - Light Theme */}
+          <div className="p-8 md:p-12 rounded-3xl bg-[#f5f5f3]/90 backdrop-blur-2xl border border-[#415a77]/20 shadow-[0_8px_64px_rgba(13,27,42,0.1)]">
             <h1
+              id="hero-heading"
               ref={titleRef}
-              className="text-5xl sm:text-6xl md:text-8xl font-black text-gray-900 mb-6 leading-[0.95] tracking-tight opacity-0"
+              className="text-5xl sm:text-6xl md:text-8xl font-black text-[#0d1b2a] mb-6 leading-[0.95] tracking-tight opacity-0"
             >
               WebDev
               <br />
-              <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#415a77] via-[#1b263b] to-[#0d1b2a] bg-clip-text text-transparent">
                 Portugal
               </span>
             </h1>
 
             <p
               ref={subtitleRef}
-              className="text-xl md:text-2xl text-gray-500 font-light mb-4 tracking-wide opacity-0"
+              className="text-xl md:text-2xl text-[#5c7a99] font-light mb-4 tracking-wide opacity-0"
             >
               Desenvolvimento Web Moderno & Inovador
             </p>
 
             <p
               ref={descRef}
-              className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed font-light opacity-0"
+              className="text-base md:text-lg text-[#5c7a99]/80 max-w-2xl mx-auto leading-relaxed font-light opacity-0"
             >
               Criamos experiências digitais excepcionais com as mais recentes
               tecnologias, focando sempre na performance e experiência do
@@ -118,27 +123,27 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
 
-          {/* CTA */}
+          {/* CTA - Light Theme */}
           <div ref={ctaRef} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0">
             <a
               href="#portfolio"
-              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold text-sm tracking-wider uppercase overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(139,92,246,0.3)] hover:scale-105"
+              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[#415a77] to-[#1b263b] text-[#e0e1dd] font-semibold text-sm tracking-wider uppercase overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(65,90,119,0.4)] hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-2"
             >
               <span className="relative z-10">Ver Projetos</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1b263b] to-[#415a77] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </a>
             <a
               href="#contact"
-              className="px-8 py-4 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-700 font-semibold text-sm tracking-wider uppercase shadow-lg hover:bg-white hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="px-8 py-4 rounded-full bg-[#f5f5f3]/90 backdrop-blur-sm border border-[#415a77]/40 text-[#0d1b2a] font-semibold text-sm tracking-wider uppercase shadow-lg hover:bg-white hover:border-[#415a77] hover:shadow-xl hover:scale-105 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#2563eb] focus-visible:ring-offset-2"
             >
               Contactar
             </a>
           </div>
 
-          {/* Scroll indicator */}
-          <div className="mt-16 animate-bounce">
-            <div className="w-6 h-10 mx-auto rounded-full border-2 border-gray-300 flex justify-center pt-2">
-              <div className="w-1 h-3 rounded-full bg-gray-400 animate-pulse" />
+          {/* Scroll indicator - Light Theme */}
+          <div className="mt-16 animate-bounce" aria-hidden="true">
+            <div className="w-6 h-10 mx-auto rounded-full border-2 border-[#415a77] flex justify-center pt-2">
+              <div className="w-1 h-3 rounded-full bg-[#1b263b] animate-pulse" />
             </div>
           </div>
         </div>
