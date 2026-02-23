@@ -16,8 +16,6 @@ const projectImages = [
   'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&h=400&fit=crop',
   'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&h=400&fit=crop',
   'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1537432376149-e84978e29832?w=600&h=400&fit=crop',
   'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=400&fit=crop',
 ];
 
@@ -184,9 +182,13 @@ const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* CTA */}
-                  <a
-                    href={project.liveUrl || '#'}
-                    className="inline-flex items-center gap-2 text-violet-600 font-semibold text-sm hover:text-violet-500 transition-colors group/link"
+                  <button
+                    onClick={() => {
+                      if (project.liveUrl) {
+                        window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                      }
+                    }}
+                    className="inline-flex items-center gap-2 text-violet-600 font-semibold text-sm hover:text-violet-500 transition-colors group/link cursor-pointer"
                   >
                     Ver Projeto
                     <svg
@@ -202,7 +204,7 @@ const ProjectsSection: React.FC = () => {
                         d="M17 8l4 4m0 0l-4 4m4-4H3"
                       />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,14 +1,14 @@
 import React from 'react';
-import { FaHeart, FaCode, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaHeart, FaCode/*, FaGithub, FaLinkedin, FaTwitter*/ } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    { icon: FaGithub, href: '#', label: 'GitHub' },
-    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-    { icon: FaTwitter, href: '#', label: 'Twitter' },
-  ];
+  // const socialLinks = [
+  //   { icon: FaGithub, href: '#', label: 'GitHub' },
+  //   { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
+  //   { icon: FaTwitter, href: '#', label: 'Twitter' },
+  // ];
 
   return (
     <footer className="bg-gray-900 text-white section-padding">
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
               WebDev <span className="text-primary-400">Portugal</span>
             </h3>
             <p className="text-gray-400 leading-relaxed">
-              Criamos experiências digitais excepcionais com tecnologias modernas 
+              Criamos experiências digitais excepcionais com tecnologias modernas
               e design centrado no utilizador.
             </p>
           </div>
@@ -60,9 +60,9 @@ const Footer: React.FC = () => {
               <p>+351 925934270</p>
               <p>Lisboa, Portugal</p>
             </div>
-            
+
             <div className="flex space-x-4 mt-6">
-              {socialLinks.map((social, index) => (
+              {/* {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
             © {currentYear} WebDev Portugal. Todos os direitos reservados.
           </p>
-          
+
           <div className="flex items-center space-x-2 text-gray-400 text-sm">
             <span>Feito com</span>
             <FaHeart className="w-4 h-4 text-red-500" />

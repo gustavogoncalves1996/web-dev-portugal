@@ -1,14 +1,14 @@
 import React from 'react';
-import { FaHeart, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaHeart/*, FaGithub, FaLinkedin, FaTwitter*/ } from 'react-icons/fa';
 
 const FooterNew: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    { icon: FaGithub, href: '#', label: 'GitHub' },
-    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-    { icon: FaTwitter, href: '#', label: 'Twitter' },
-  ];
+  // const socialLinks = [
+  //   { icon: FaGithub, href: '#', label: 'GitHub' },
+  //   { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
+  //   { icon: FaTwitter, href: '#', label: 'Twitter' },
+  // ];
 
   return (
     <footer className="relative py-16 px-6 border-t border-gray-200">
@@ -62,7 +62,7 @@ const FooterNew: React.FC = () => {
             </div>
 
             <div className="flex space-x-3 mt-6">
-              {socialLinks.map((social, i) => (
+              {/* {socialLinks.map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
@@ -71,7 +71,7 @@ const FooterNew: React.FC = () => {
                 >
                   <social.icon className="w-4 h-4" />
                 </a>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

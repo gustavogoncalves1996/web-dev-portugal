@@ -97,7 +97,7 @@ const DomeGallery: React.FC<DomeGalleryProps> = ({
     // Auto-rotate
     const autoRotate = () => {
       if (!isDragging.current) {
-        rotationRef.current += 0.15;
+        rotationRef.current += 0.05;
         velocity.current *= 0.95;
         rotationRef.current += velocity.current;
       }
