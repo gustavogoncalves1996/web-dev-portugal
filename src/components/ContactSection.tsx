@@ -26,24 +26,24 @@ const ContactSection: React.FC = () => {
   const contactLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const statusRef = useRef<HTMLDivElement>(null);
-  
+
   // Form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
-  
+
   // Form status for accessibility announcements
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Handle form submission - opens mailto with captured data
   const handleSendEmail = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const recipient = 'ola.webdevportugal@gmail.com';
     const subject = encodeURIComponent('Novo contacto via Website - WebDev Portugal');
-    
+
     // Format the body with the user's info
     const bodyContent = `De: ${formData.name || 'Não especificado'}
 Email de contacto: ${formData.email || 'Não especificado'}
@@ -53,17 +53,17 @@ ${formData.message || 'Sem mensagem'}
 
 ---
 Enviado através do formulário de contacto do website WebDev Portugal`;
-    
+
     const body = encodeURIComponent(bodyContent);
-    
+
     // Update status for screen readers
     setFormStatus('success');
-    
+
     // Focus the status message for screen reader announcement
     setTimeout(() => {
       statusRef.current?.focus();
     }, 100);
-    
+
     // Open the default email client
     window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
   };
@@ -167,7 +167,7 @@ Enviado através do formulário de contacto do website WebDev Portugal`;
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-20 opacity-0">
-          <h2 
+          <h2
             id="contact-heading"
             className="text-5xl md:text-7xl font-black text-[#0d1b2a] leading-tight tracking-tight"
           >
@@ -241,17 +241,31 @@ Enviado através do formulário de contacto do website WebDev Portugal`;
             aria-label="Formulário de contacto"
           >
             {/* Status message for screen readers */}
-            
-            
+            <div
+              ref={statusRef}
+              role="status"
+              aria-live="polite"
+              tabIndex={-1}
+              className={`text-sm font-medium mb-2 transition-all duration-300 ${formStatus === 'success'
+                  ? 'text-[#276749]'
+                  : formStatus === 'error'
+                    ? 'text-[#c53030]'
+                    : 'sr-only'
+                }`}
+            >
+              {formStatus === 'success' && 'Mensagem enviada com sucesso! O seu cliente de email foi aberto.'}
+              {formStatus === 'error' && 'Ocorreu um erro ao enviar a mensagem. Por favor tente novamente.'}
+            </div>
+
+
             {/* Name */}
             <div className="relative">
               <label
                 htmlFor="contact-name"
-                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${
-                  focusedField === 'name' || formData.name
+                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${focusedField === 'name' || formData.name
                     ? 'text-xs text-[#1b263b] -top-5 font-medium'
                     : 'text-sm text-[#5c7a99] top-4'
-                }`}
+                  }`}
               >
                 Nome
               </label>
@@ -273,11 +287,10 @@ Enviado através do formulário de contacto do website WebDev Portugal`;
             <div className="relative">
               <label
                 htmlFor="contact-email"
-                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${
-                  focusedField === 'email' || formData.email
+                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${focusedField === 'email' || formData.email
                     ? 'text-xs text-[#1b263b] -top-5 font-medium'
                     : 'text-sm text-[#5c7a99] top-4'
-                }`}
+                  }`}
               >
                 Email
               </label>
@@ -299,11 +312,10 @@ Enviado através do formulário de contacto do website WebDev Portugal`;
             <div className="relative">
               <label
                 htmlFor="contact-message"
-                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${
-                  focusedField === 'message' || formData.message
+                className={`absolute left-0 transition-all duration-300 pointer-events-none font-light ${focusedField === 'message' || formData.message
                     ? 'text-xs text-[#1b263b] -top-5 font-medium'
                     : 'text-sm text-[#5c7a99] top-4'
-                }`}
+                  }`}
               >
                 Mensagem
               </label>
