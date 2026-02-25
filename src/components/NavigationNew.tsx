@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Home, User, Zap, Briefcase, Mail } from 'lucide-react';
+import { Home, User, Zap, Briefcase, CreditCard, Mail } from 'lucide-react';
 
 const navItems = [
   { id: 'home', label: 'Início', icon: Home },
   { id: 'about', label: 'Sobre', icon: User },
   { id: 'skills', label: 'Competências', icon: Zap },
   { id: 'portfolio', label: 'Projetos', icon: Briefcase },
+  { id: 'pricing', label: 'Planos', icon: CreditCard },
   { id: 'contact', label: 'Contacto', icon: Mail },
 ];
 
