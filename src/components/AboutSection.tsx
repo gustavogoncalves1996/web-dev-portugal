@@ -59,7 +59,7 @@ const AboutSection: React.FC = () => {
       ref={sectionRef}
       id="about"
       aria-labelledby="about-heading"
-      className="relative py-32 px-6 lg:px-12 overflow-hidden"
+      className="relative py-16 px-6 lg:px-12 overflow-hidden"
     >
       {/* Light gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#e0e1dd] via-[#f5f5f3] to-[#e0e1dd]" />

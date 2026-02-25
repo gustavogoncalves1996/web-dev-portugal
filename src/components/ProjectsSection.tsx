@@ -1,28 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import DomeGallery from './DomeGallery';
 import { projects } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projectImages = [
-  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&h=400&fit=crop',
-  'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=400&fit=crop',
-];
-
 const ProjectsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
   const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
@@ -38,22 +23,6 @@ const ProjectsSection: React.FC = () => {
           scrollTrigger: {
             trigger: headingRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      gsap.fromTo(
-        galleryRef.current,
-        { opacity: 0, scale: 0.9 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: galleryRef.current,
-            start: 'top 85%',
             toggleActions: 'play none none reverse',
           },
         }
@@ -89,7 +58,7 @@ const ProjectsSection: React.FC = () => {
       ref={sectionRef}
       id="portfolio"
       aria-labelledby="portfolio-heading"
-      className="relative py-32 px-6 lg:px-12 overflow-hidden"
+      className="relative py-16 px-6 lg:px-12 overflow-hidden"
     >
       {/* Light Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#e0e1dd] via-[#f5f5f3] to-[#e0e1dd]" />
@@ -106,25 +75,7 @@ const ProjectsSection: React.FC = () => {
           </h2>
           <p className="text-[#5c7a99] text-lg md:text-xl mt-6 max-w-2xl mx-auto font-light">
             Explore as nossas soluções digitais desenvolvidas com tecnologias de ponta.
-            Arraste para navegar na galeria.
           </p>
-        </div>
-
-        {/* DomeGallery */}
-        <div
-          ref={galleryRef}
-          className="w-full h-[400px] md:h-[500px] mb-24 opacity-0"
-          role="region"
-          aria-label="Galeria de projetos"
-        >
-          <DomeGallery
-            fit={0.75}
-            minRadius={500}
-            segments={12}
-            dragDampening={2}
-            grayscale
-            images={projectImages}
-          />
         </div>
 
         {/* Project Details */}
