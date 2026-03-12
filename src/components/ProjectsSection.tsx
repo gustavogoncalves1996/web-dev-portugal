@@ -139,6 +139,7 @@ const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* CTA */}
+                  {project.liveUrl && (
                   <button
                     onClick={() => {
                       if (project.liveUrl) {
@@ -164,6 +165,7 @@ const ProjectsSection: React.FC = () => {
                       />
                     </svg>
                   </button>
+                  )}
                 </div>
               </div>
             </article>
