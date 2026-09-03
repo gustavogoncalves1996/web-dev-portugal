@@ -28,14 +28,14 @@ export const projects: Project[] = [
   //   liveUrl: "https://cvbuilder.pt/",
   //   githubUrl: "#"
   // },
-  {
-    id: 3,
-    title: "Brasão",
-    description: "Restaurante Brasão é um projeto que visa criar uma experiência gastronómica única, combinando a tradição culinária com um ambiente acolhedor e moderno. O restaurante oferece uma variedade de pratos inspirados na cozinha portuguesa, utilizando ingredientes frescos e de alta qualidade. Com um serviço atencioso e uma atmosfera convidativa, o Restaurante Brasão é o local perfeito para desfrutar de uma refeição memorável, seja para um jantar romântico, uma reunião de negócios ou uma celebração em família. Venha descobrir os sabores autênticos e a hospitalidade calorosa do Restaurante Brasão.",
-    video: "https://va.media.tumblr.com/tumblr_tax1udCZkf1b0v1cc_720.mp4",
-    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
-    githubUrl: "#"
-  },
+  // {
+  //   id: 3,
+  //   title: "Brasão",
+  //   description: "Restaurante Brasão é um projeto que visa criar uma experiência gastronómica única, combinando a tradição culinária com um ambiente acolhedor e moderno. O restaurante oferece uma variedade de pratos inspirados na cozinha portuguesa, utilizando ingredientes frescos e de alta qualidade. Com um serviço atencioso e uma atmosfera convidativa, o Restaurante Brasão é o local perfeito para desfrutar de uma refeição memorável, seja para um jantar romântico, uma reunião de negócios ou uma celebração em família. Venha descobrir os sabores autênticos e a hospitalidade calorosa do Restaurante Brasão.",
+  //   video: "https://va.media.tumblr.com/tumblr_tax1udCZkf1b0v1cc_720.mp4",
+  //   technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe"],
+  //   githubUrl: "#"
+  // },
   
   {
     id: 4,
